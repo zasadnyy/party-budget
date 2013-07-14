@@ -71,6 +71,7 @@
     <orderEntry type="module" module-name="sherlocknavigationdrawer" />
     <orderEntry type="module" module-name="actionbarsherlock" />
     <orderEntry type="library" name="butterknife-1.4.0" level="project" />
+    <orderEntry type="library" name="crouton-1.8.1" level="project" />
   </component>
 </module>
 

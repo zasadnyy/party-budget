@@ -1,5 +1,6 @@
 package ua.org.zasadnyy.partybudget.ui.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import butterknife.InjectView;
 import butterknife.Views;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import ua.org.zasadnyy.partybudget.R;
 
 /**
@@ -56,7 +59,8 @@ public class PartiesListPanel extends RelativeLayout implements ListView.OnItemC
             @Override
             public void onClick(View view) {
                 if (null != mListener) mListener.onItemSelected();
-                Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+                Crouton.makeText((Activity)getContext(), "Settings", Style.INFO).show();
             }
         });
     }

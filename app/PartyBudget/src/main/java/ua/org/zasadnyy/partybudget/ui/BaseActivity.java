@@ -14,6 +14,7 @@ import com.sherlock.navigationdrawer.compat.SherlockActionBarDrawerToggle;
 
 import butterknife.InjectView;
 import butterknife.Views;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 import ua.org.zasadnyy.partybudget.R;
 import ua.org.zasadnyy.partybudget.ui.widget.PartiesListPanel;
 
@@ -29,7 +30,6 @@ public class BaseActivity extends SherlockFragmentActivity {
     @InjectView(R.id.navigation_drawer)
 
     protected PartiesListPanel mNavigationDrawer;
-
     private ActionBarHelper mActionBar;
     private SherlockActionBarDrawerToggle mDrawerToggle;
 
@@ -41,6 +41,12 @@ public class BaseActivity extends SherlockFragmentActivity {
         Views.inject(this);
 
         initDrawerLayout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
     }
 
     @Override

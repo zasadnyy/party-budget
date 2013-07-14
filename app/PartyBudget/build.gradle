@@ -18,6 +18,9 @@ dependencies {
     compile project(':libprojects:actionbarsherlock')
     compile project(':libprojects:sherlocknavigationdrawer')
     compile 'com.jakewharton:butterknife:1.4.0'
+    compile ('de.keyboardsurfer.android.widget:crouton:1.8.1') {
+        exclude  module: 'support-v4'
+    }
 }
 
 android {
