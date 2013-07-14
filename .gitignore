@@ -19,3 +19,5 @@ local.properties
 .classpath
 .project
 app/PartyBudget/build
+app/libprojects/actionbarsherlock/build
+app/libprojects/sherlocknavigationdrawer/build

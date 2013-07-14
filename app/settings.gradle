@@ -1,1 +1,3 @@
-include ':PartyBudget'
+include ':libprojects:actionbarsherlock'
+include ':libprojects:sherlocknavigationdrawer'
+include ':partybudget'

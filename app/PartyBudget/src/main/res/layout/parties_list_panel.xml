@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+
+    <ListView
+            android:id="@+id/drawer_parties_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:background="@android:color/white"
+            android:cacheColorHint="@null"
+            android:scrollingCache="true"
+            android:isScrollContainer="false"
+            android:fastScrollEnabled="true"
+            android:smoothScrollbar="true"/>
+
+    <TextView
+            android:id="@+id/drawer_settings_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:text="Settings"
+            android:padding="8dp"
+            style="@android:style/TextAppearance.Medium"/>
+
+</RelativeLayout>
