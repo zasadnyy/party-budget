@@ -3,13 +3,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:padding="24dp">
 
     <TextView
-            android:id="@+id/content_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="CONTENT"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter party details"
+            android:id="@+id/party_details_description"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            android:text="Party Name"
+            android:ems="10"
+            android:id="@+id/party_details_name"
+            android:layout_gravity="center"
+            android:autoText="false"
+            android:editable="true"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:layout_margin="8dp"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/party_details_size"
+            android:layout_gravity="center"
+            android:text="Party Size"
+            android:selectAllOnFocus="true"
+            android:layout_margin="8dp"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/party_details_submit"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"/>
 
 </LinearLayout>

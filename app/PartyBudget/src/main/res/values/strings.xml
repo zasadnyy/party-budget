@@ -7,5 +7,8 @@
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="party_details_empty_party_name_error">Nameless party? Really?</string>
+    <string name="party_details_not_positive_int_party_size">Size should be positive integer
+    </string>
 
 </resources>
