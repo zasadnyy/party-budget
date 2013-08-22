@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+
+apply plugin: 'android-library'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.nineoldandroids:library:2.4.0'
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion '17'
+
+    defaultConfig {
+        targetSdkVersion 17
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+}
+
+group 'de.timroes'
+version '2013-05-28'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom {
+                artifactId = 'swipetodismiss'
+            }
+        }
+    }
+}

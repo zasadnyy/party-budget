@@ -1,3 +1,2 @@
-//include ':libprojects:actionbarsherlock'
-include ':libprojects:sherlocknavigationdrawer'
+include ':libprojects:SwipeToDismissUndoList'
 include ':partybudget'

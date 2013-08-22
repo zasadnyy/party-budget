@@ -34,16 +34,20 @@ import ua.org.zasadnyy.partybudget.util.UiUtils;
 public class PartyDetailsFragment extends SherlockFragment {
 
     private static final int MIN_PARTY_SIZE = 1;
+
     @InjectView(R.id.party_details_name)
     EditText mNameTextView;
     @InjectView(R.id.party_details_size)
     EditText mSizeTextView;
+
     private Form mForm;
+
 
     public static Fragment newInstance() {
         Fragment f = new PartyDetailsFragment();
         return f;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

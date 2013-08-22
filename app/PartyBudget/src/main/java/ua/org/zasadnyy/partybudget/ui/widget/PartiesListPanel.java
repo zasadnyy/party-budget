@@ -4,23 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
 import butterknife.Views;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
+import de.timroes.swipetodismiss.SwipeDismissList;
 import ua.org.zasadnyy.partybudget.PartyBudgetApplication;
 import ua.org.zasadnyy.partybudget.R;
+import ua.org.zasadnyy.partybudget.dao.DaoSession;
 import ua.org.zasadnyy.partybudget.dao.Party;
 import ua.org.zasadnyy.partybudget.dao.PartyDao;
+import ua.org.zasadnyy.partybudget.dao.Payer;
+import ua.org.zasadnyy.partybudget.dao.PayerDao;
+import ua.org.zasadnyy.partybudget.dao.Transaction;
+import ua.org.zasadnyy.partybudget.dao.TransactionDao;
+import ua.org.zasadnyy.partybudget.ui.PartyListPanelAdapter;
 
 /**
  * Created by vitaliyzasadnyy on 14.07.13.
@@ -31,6 +38,7 @@ public class PartiesListPanel extends RelativeLayout implements ListView.OnItemC
     ListView mPartiesList;
     @InjectView(R.id.drawer_settings_button)
     TextView mSettingsButton;
+
     private boolean mAlreadyInflated = false;
     private ItemSelectedListener mListener;
 
@@ -55,16 +63,13 @@ public class PartiesListPanel extends RelativeLayout implements ListView.OnItemC
     }
 
     private void initPanel() {
+        SwipeDismissList swipeList = new SwipeDismissList(mPartiesList, new OnDismissCallback());
+        swipeList.setSwipeDirection(SwipeDismissList.SwipeDirection.END);
 
         PartyDao partyDao = PartyBudgetApplication.getDaoSession().getPartyDao();
         List<Party> parties = partyDao.loadAll();
 
-        List<String> menuEntries = new ArrayList<String>(parties.size());
-        for (Party party : parties) {
-            menuEntries.add(party.getName());
-        }
-
-        mPartiesList.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, menuEntries));
+        mPartiesList.setAdapter(new PartyListPanelAdapter(getContext(), parties));
         mPartiesList.setOnItemClickListener(this);
 
         mSettingsButton.setOnClickListener(new OnClickListener() {
@@ -82,5 +87,40 @@ public class PartiesListPanel extends RelativeLayout implements ListView.OnItemC
 
     public interface ItemSelectedListener {
         void onItemSelected();
+    }
+
+
+    private static class OnDismissCallback implements SwipeDismissList.OnDismissCallback {
+
+        public SwipeDismissList.Undoable onDismiss(AbsListView listView, int position) {
+            ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
+            Party party = (Party) adapter.getItem(position);
+            adapter.remove(party);
+            removeFromDb(party);
+            // Return an Undoable object to make action undonable
+            return null;
+        }
+
+        private void removeFromDb(final Party party) {
+            DaoSession daoSession = PartyBudgetApplication.getDaoSession();
+            final PartyDao partyDao = daoSession.getPartyDao();
+            final PayerDao payerDao = daoSession.getPayerDao();
+            final TransactionDao transactionDao = daoSession.getTransactionDao();
+
+            daoSession.runInTx(new Runnable() {
+                @Override
+                public void run() {
+                    for(Payer payer : party.getPayers()) {
+                        for(Transaction transaction : payer.getTransactions()) {
+                            transactionDao.delete(transaction);
+                        }
+                        payerDao.delete(payer);
+                    }
+                    partyDao.delete(party);
+                }
+            });
+
+        }
+
     }
 }
